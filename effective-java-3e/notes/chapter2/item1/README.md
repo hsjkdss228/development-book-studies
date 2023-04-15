@@ -32,16 +32,14 @@ BigInteger.probablePrime
 - 3번 장점으로부터 이어지는 장점으로, 반환 타입의 하위 타입이기만 하면
   어떤 클래스의 객체를 반환해도 상관없다.
 
-```Java
-// OpenJDK에서는 EnumSet 클래스가 정적 팩터리 메서드만 제공하는데,
-// 원소의 수에 따라 두 가지 하위 클래스 중 하나의 인스턴스를 반환.
-// 원소가 64개 이하이면 원소들을 long 변수 하나로 관리하는 RegularEnumSet의 인스턴스를,
-// 65개 이상이면 원소들을 long 배열로 관리하는 JumboEnumSet의 인스턴스를 반환. 
-```
+> OpenJDK에서는 EnumSet 클래스가 정적 팩터리 메서드만 제공하는데,
+> 원소의 수에 따라 두 가지 하위 클래스 중 하나의 인스턴스를 반환.  
+> 원소가 64개 이하이면 원소들을 long 변수 하나로 관리하는 RegularEnumSet의 인스턴스를,
+> 65개 이상이면 원소들을 long 배열로 관리하는 JumboEnumSet의 인스턴스를 반환.
 
-- 시사점은, 다음 릴리스에는 다른 클래스가 추가되어 반환될 수도 있는데, 
+- 시사점이라고 한다면, 이를테면 어떤 릴리스의 다음 릴리스에는 다른 클래스가 추가되어 반환될 수도 있는데, 
   단지 클라이언트는 팩터리 메서드로부터 건네받는 객체가 EnumSet의 하위 클래스이기만 하면
-  어느 클래스의 인스턴스인지 알 수도 없고, 알 필요도 없는 것.
+  어느 클래스의 인스턴스인지 알 필요가 없이 EnumSet으로 사용하기만 하면 되는 것.
 
 ### 5. 정적 팩터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.
 
@@ -63,26 +61,42 @@ BigInteger.probablePrime
 
 #### 정적 팩터리 메서드에서 흔히 사용되는 명명 방식
 
+##### 1. from
+
+- 매개변수를 하나 받아 인스턴스를 반환하는 형태
+  ```Java
+  Date date = Date.from(instant);
+  ```
+
+##### 2. of
+
+- 매개변수를 여러 개 받아 적절한 타입의 인스턴스를 반환하는 형태
+
 ```Java
-// from
-// 매개변수를 하나 받아 인스턴스를 반환
-Date date = Date.from(instant);
-
-// of
-// 매개변수를 여러 개 받아 적절한 타입의 인스턴스를 반환
 Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);
+```
 
-// valueOf
+##### 3. valueOf
+
+```Java
 BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
+```
 
-// instance, getInstance, create, newInstance
-// 매개변수를 받을 경우 매개변수로 명시한 인스턴스를 반환.
-// create, newInstance의 경우 매번 새로운 인스턴스를 생성해 반환하는 것을 보장.
+##### 4. instance, getInstance, create, newInstance
+
+- 매개변수를 받을 경우 매개변수로 명시한 인스턴스를 반환하는 형태
+- creat, newInstance의 경우 매번 새로운 인스턴스를 생성해 반환하는 것을 보장
+
+```Java
 Object newArray = Array.newInstance(classObject, arrayLength);
+```
 
-// getType, newType, type
-// (type: 반환할 객체의 타입)
-// 생성할 클래스가 아닌 다른 클래스에 팩터리 메서드를 정의할 때 사용
+##### 5. getType, newType, type
+
+- type: 반환할 객체의 타입
+- 생성할 클래스가 아닌 다른 클래스에 팩터리 메서드를 정의할 때 사용
+
+```Java
 FileStore fileStore = Files.getFileStore(path);
 List<Complaint> litany = Collections.list(legacyLitany);
 ```
