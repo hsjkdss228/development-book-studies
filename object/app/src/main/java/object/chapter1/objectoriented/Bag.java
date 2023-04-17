@@ -10,28 +10,33 @@ public class Bag {
         this.invitation = null;
     }
 
-    public Bag(Long money, Invitation invitation) {
-        this.money = money;
-        this.invitation = invitation;
+    public Long put(Ticket ticket) {
+        if (hasInvitation()) {
+            setTicket(ticket);
+            return 0L;
+        }
+        setTicket(ticket);
+        minusMoney(ticket.price());
+        return ticket.price();
     }
 
-    public boolean hasInvitation() {
+    private boolean hasInvitation() {
         return invitation != null;
     }
 
-    public boolean hasTicket() {
+    private boolean hasTicket() {
         return ticket != null;
     }
 
-    public void setTicket(Ticket ticket) {
+    private void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
 
-    public void minusMoney(Long money) {
+    private void minusMoney(Long money) {
         this.money -= money;
     }
 
-    public void plusMoney(Long money) {
+    private void plusMoney(Long money) {
         this.money += money;
     }
 }
