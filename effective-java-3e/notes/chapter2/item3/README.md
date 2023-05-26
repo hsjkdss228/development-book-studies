@@ -55,7 +55,7 @@ public class SingletonObject {
 - 이러한 방식들은 public이나 protected 생성자가 존재하지 않으므로
   해당 클래스의 인스턴스가 전체 시스템에서 단 하나임을 보장할 수 있음.
 
-### 원소가 하나인 열거 타입을 선언하는 방₩
+### 원소가 하나인 열거 타입을 선언하는 방식
 
 ```java
 public enum SingletonEnum {
