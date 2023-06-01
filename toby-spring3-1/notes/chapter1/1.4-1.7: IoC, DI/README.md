@@ -191,12 +191,12 @@ public class UserDao {
 @Bean
 public ConnectionMaker connectionMaker() {
     return new LocalDbConnectionMaker();
-    }
+}
 
 @Bean
 public ConnectionMaker connectionMaker() {
     return new ProductionDbConnectionMaker();
-    }
+}
 ```
 
 #### 부가기능 추가
