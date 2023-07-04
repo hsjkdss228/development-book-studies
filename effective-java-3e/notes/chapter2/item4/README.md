@@ -19,7 +19,7 @@ public class Factory {
 
 ```java
 public class Model {
-    public process() {
+    public void process() {
         // 인스턴스화할 수 없다.
         Factory factory = new Factory();
     }
